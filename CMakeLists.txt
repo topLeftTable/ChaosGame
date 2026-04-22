@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.28)
-project(Chapter05 LANGUAGES CXX)
+project(ChaosGame LANGUAGES CXX)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 

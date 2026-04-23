@@ -1,19 +1,13 @@
 // Include important C++ libraries here
 
 #include <SFML/Graphics.hpp>
-
 #include <SFML/Audio.hpp>
-
 #include <iostream>
-
 #include <sstream>
-
 #include <vector>
 
 // Make the code easier to type with "using namespace"
-
 using namespace sf;
-
 using namespace std;
 
 int main()
@@ -107,7 +101,19 @@ int main()
       window.draw(rect);
     }
 
+    //points.push_back(Vector2f(15, 15));
+
     /// TODO:  Draw points
+    if (points.size() > 0)
+    {
+      for (Vector2f point : points)
+      {
+        RectangleShape rect(Vector2f(10, 10));
+        rect.setPosition(point);
+        rect.setFillColor(Color::Green);
+        window.draw(rect);
+      }
+    }
 
     window.display();
   }

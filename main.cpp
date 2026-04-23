@@ -13,6 +13,7 @@ using namespace std;
 int main()
 
 {
+  srand(time(0));
   // Create a video mode object
   VideoMode vm(1920, 1080);
 
@@ -56,7 +57,7 @@ int main()
           {
             /// fourth click
 
-            /// push back to points vector
+            /// push back to points vector 
 
             for (int i = 0; i < vertices.size(); i++)
             {
@@ -90,6 +91,26 @@ int main()
       /// vector
 
       /// push back the newly generated coord.
+
+        // NOT GONNA LIE WE ALL STRUGGLED AND WORKED ON THIS
+
+       int randomInt;
+       Vector2f randomVec;
+       Vector2f tempVec;
+      
+      randomInt = rand() % (vertices.size());
+
+      randomVec = vertices[randomInt];
+      
+
+      tempVec.x = (randomVec.x + points[points.size() - 1].x) * .5;
+      tempVec.y = (randomVec.y + points[points.size() - 1].y) * .5;
+
+      points.push_back(tempVec);
+
+     
+
+
     }
 
     /*

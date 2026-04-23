@@ -24,6 +24,7 @@ int main()
 
   while (window.isOpen())
   {
+
     /*
     ****************************************
     Handle the players input
@@ -33,6 +34,7 @@ int main()
     Event event;
     while (window.pollEvent(event))
     {
+
       if (event.type == Event::Closed)
       {
         // Quit the game when the window is closed

@@ -57,6 +57,14 @@ int main()
             /// fourth click
 
             /// push back to points vector
+
+            for (int i = 0; i < vertices.size(); i++)
+            {
+
+              points.push_back(vertices[i]);
+
+            }
+
           }
         }
       }

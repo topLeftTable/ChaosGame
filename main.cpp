@@ -22,7 +22,6 @@ int main()
 
   vector<Vector2f> vertices;
   vector<Vector2f> points;
-
   while (window.isOpen())
   {
     /*

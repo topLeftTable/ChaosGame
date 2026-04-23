@@ -11,7 +11,6 @@ using namespace sf;
 using namespace std;
 
 int main()
-
 {
   srand(time(0));
   // Create a video mode object
@@ -24,6 +23,7 @@ int main()
   vector<Vector2f> points;
   while (window.isOpen())
   {
+
     /*
     ****************************************
     Handle the players input
@@ -33,6 +33,7 @@ int main()
     Event event;
     while (window.pollEvent(event))
     {
+
       if (event.type == Event::Closed)
       {
         // Quit the game when the window is closed
@@ -60,11 +61,8 @@ int main()
 
             for (int i = 0; i < vertices.size(); i++)
             {
-
               points.push_back(vertices[i]);
-
             }
-
           }
         }
       }
@@ -91,11 +89,11 @@ int main()
 
       /// push back the newly generated coord.
 
-        // NOT GONNA LIE WE ALL STRUGGLED AND WORKED ON THIS
+      // NOT GONNA LIE WE ALL STRUGGLED AND WORKED ON THIS
 
-       int randomInt;
-       Vector2f randomVec;
-       Vector2f tempVec;
+      int randomInt;
+      Vector2f randomVec;
+      Vector2f tempVec;
       
       randomInt = rand() % (vertices.size());
 
@@ -106,10 +104,6 @@ int main()
       tempVec.y = (randomVec.y + points[points.size() - 1].y) * .5;
 
       points.push_back(tempVec);
-
-     
-
-
     }
 
     /*

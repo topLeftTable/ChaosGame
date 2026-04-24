@@ -1,0 +1,14 @@
+{
+	"InstallScripts" : 
+	[
+		"/home/eziki/Documents/School/College/CISP 400/chaosgame/ChaosGame/build/cmake_install.cmake",
+		"/home/eziki/Documents/School/College/CISP 400/chaosgame/ChaosGame/build/_deps/sfml-build/cmake_install.cmake",
+		"/home/eziki/Documents/School/College/CISP 400/chaosgame/ChaosGame/build/_deps/sfml-build/src/SFML/cmake_install.cmake",
+		"/home/eziki/Documents/School/College/CISP 400/chaosgame/ChaosGame/build/_deps/sfml-build/src/SFML/System/cmake_install.cmake",
+		"/home/eziki/Documents/School/College/CISP 400/chaosgame/ChaosGame/build/_deps/sfml-build/src/SFML/Window/cmake_install.cmake",
+		"/home/eziki/Documents/School/College/CISP 400/chaosgame/ChaosGame/build/_deps/sfml-build/src/SFML/Network/cmake_install.cmake",
+		"/home/eziki/Documents/School/College/CISP 400/chaosgame/ChaosGame/build/_deps/sfml-build/src/SFML/Graphics/cmake_install.cmake",
+		"/home/eziki/Documents/School/College/CISP 400/chaosgame/ChaosGame/build/_deps/sfml-build/src/SFML/Audio/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

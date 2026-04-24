@@ -1,5 +1,11 @@
-// Include important C++ libraries here
+  /*
+  **************************************
+  Project By Logan Doose, Jalen Watkins,
+  Ezekiel Shahbaz, and Deaven Niccum
+  **************************************
+  */
 
+// Include important C++ libraries here
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <iostream>
@@ -12,15 +18,22 @@ using namespace std;
 
 int main()
 {
+
+  // Seed the random number generator
   srand(time(0));
+
   // Create a video mode object
   VideoMode vm(1920, 1080);
 
   // Create and open a window for the game
   RenderWindow window(vm, "Chaos Game!!", Style::Default);
 
+  // Coordinate points forming initial shape
   vector<Vector2f> vertices;
+  // Random points generated during calculations
   vector<Vector2f> points;
+
+  // Start the game loop
   while (window.isOpen())
   {
 
@@ -40,36 +53,41 @@ int main()
         window.close();
       }
 
+      // Quit the game when ESC key is pressed
+      if (Keyboard::isKeyPressed(Keyboard::Escape))
+      {
+        window.close();
+      }
+
       if (event.type == sf::Event::MouseButtonPressed)
       {
+
         if (event.mouseButton.button == sf::Mouse::Left)
         {
           std::cout << "the left button was pressed" << std::endl;
           std::cout << "mouse x: " << event.mouseButton.x << std::endl;
           std::cout << "mouse y: " << event.mouseButton.y << std::endl;
+
+          // Possible vertices max out at 10
           if (vertices.size() < 10)
           {
+            // store vertices of Left Mouse clicks
             vertices.push_back(
                 Vector2f(event.mouseButton.x, event.mouseButton.y));
           }
         }
+
         else if (event.mouseButton.button == sf::Mouse::Right && points.size() == 0)
-          {
-          /// fourth click
-
+        {
           /// push back to points vector
-
           for (int i = 0; i < vertices.size(); i++)
           {
             points.push_back(vertices[i]);
           }
-          }
-      }
-    }
+        }
 
-    if (Keyboard::isKeyPressed(Keyboard::Escape))
-    {
-      window.close();
+      }
+
     }
 
     /*
@@ -80,74 +98,67 @@ int main()
 
     if (points.size() > 0)
     {
+
+      int vert = vertices.size();
+      // Variable midpoint formula denominator for different shapes
+      double r;
+
+      switch (vert)
+      {
+
+        case 3: // Triangle
+          r = .5;
+          break;
+
+        case 4: // Square
+          r = .5;
+          break;
+
+        case 5: // Pentagon
+          r = .618;
+          break;
+
+        case 6: // Hexagon
+          r = .667;
+          break;
+
+        case 7: // Heptagon
+          r = .692;
+          break;
+
+        case 8: // Octagon
+          r = .707;
+          break;
+
+        case 9: // Nonagon
+          r = .742;
+          break;
+
+        case 10: // Decagon
+          r = .764;
+          break;
+
+        default:
+          break;
+
+      }
+
       /// generate more point(s)
-      /// select random vertex
-
-      /// calculate midpoint between random vertex and the last point in the
-      /// vector
-
-      /// push back the newly generated coord.
-
-      // NOT GONNA LIE WE ALL STRUGGLED AND WORKED ON THIS
-
-        int vert = vertices.size();
-        double r;
-
-        switch (vert)
-        {
-
-            case 3:
-             r = .5;
-              break;
-
-            case 4:
-              r = .5;
-              break;
-
-            case 5:
-              r = .618;
-              break;
-
-             case 6:
-              r = .667;
-               break;
-
-             case 7:
-               r = .692;
-                break;
-
-             case 8:
-               r = .707;
-               break;
-
-             case 9:
-               r = .742;
-               break;
-
-             case 10:
-               r = .764;
-               break;
-
-               default:
-               break;              
-
-        }
-
-
-
-
       int randomInt;
       Vector2f randomVec;
       Vector2f randomVec2;
       Vector2f tempVec;
-      
+
+      /// select random vertex
       randomInt = rand() % (vertices.size());
       randomVec = vertices[randomInt];
-      
 
+      /// calculate midpoint between random vertex
+      /// and the last point in the vector
       tempVec.x = (randomVec.x + points[points.size() - 1].x) * r;
       tempVec.y = (randomVec.y + points[points.size() - 1].y) * r;
 
+      /// push back the newly generated coord.
       points.push_back(tempVec);
     }
 
@@ -168,9 +179,7 @@ int main()
       window.draw(rect);
     }
 
-    //points.push_back(Vector2f(15, 15));
-
-    /// TODO:  Draw points
+    /// Draw points
     if (points.size() > 0)
     {
       for (Vector2f point : points)

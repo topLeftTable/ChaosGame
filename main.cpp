@@ -5,6 +5,7 @@
 #include <iostream>
 #include <sstream>
 #include <vector>
+#include <string>
 
 // Make the code easier to type with "using namespace"
 using namespace sf;
@@ -159,6 +160,30 @@ int main()
 
     window.clear();
 
+//    Ezekiel: Text Rendering or something
+//    Мрак привет
+
+    string str = "Pointer Position: " + to_string(event.mouseButton.x) + "," + to_string(event.mouseButton.y) + "\nAmount of Points: " + to_string(vertices.size());
+    Text msg;
+    Font font;
+    font.loadFromFile("fonts/IBMPlexMono-Regular.ttf");
+    msg.setFont(font);
+    msg.setString(str);
+    msg.setCharacterSize(25);
+    msg.setFillColor(Color::Magenta);
+    
+//    FIXME: TEXTBOX FAILURE TO DRAW
+    FloatRect textBox = msg.getLocalBounds();
+    msg.setOrigin(textBox.left +
+       textBox.width / 2.0f,
+       textBox.top +
+       textBox.height / 2.0f);
+    msg.setPosition(220,50);
+
+//    debug 4 textrender
+//    FIXME .Y COORDINATE IS ACTING WEIRD FOR NO DISCERNABLE REASON
+cout << event.mouseButton.y << endl;
+
     for (int i = 0; i < vertices.size(); i++)
     {
       RectangleShape rect(Vector2f(10, 10));
@@ -181,6 +206,11 @@ int main()
         window.draw(rect);
       }
     }
+
+
+    window.draw(msg);
+//    window.display(textBox);
+
 
     window.display();
   }

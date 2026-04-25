@@ -558,3 +558,6 @@ http-client.private.env.json
 
 # debug information files
 *.dwo
+
+#build
+build/

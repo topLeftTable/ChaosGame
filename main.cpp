@@ -20,7 +20,7 @@ int main()
 {
 
   // Seed the random number generator
-  srand(time(nullptr));
+  srand(time(0));
 
   // Create a video mode object
   VideoMode vm(1920, 1080);
@@ -98,17 +98,60 @@ int main()
 
     if (points.size() > 0)
     {
+
+      int vert = vertices.size();
+      // Variable midpoint formula denominator for different shapes
+      double r;
+
+      switch (vert)
+      {
+
+        case 3: // Triangle
+          r = .5;
+          break;
+
+        case 4: // Square
+          r = .5;
+          break;
+
+        case 5: // Pentagon
+          r = .618;
+          break;
+
+        case 6: // Hexagon
+          r = .667;
+          break;
+
+        case 7: // Heptagon
+          r = .692;
+          break;
+
+        case 8: // Octagon
+          r = .707;
+          break;
+
+        case 9: // Nonagon
+          r = .742;
+          break;
+
+        case 10: // Decagon
+          r = .764;
+          break;
+
+        default:
+          break;
+
+      }
+
       /// generate more point(s)
       int randomInt;
       Vector2f randomVec;
+      Vector2f randomVec2;
       Vector2f tempVec;
 
       /// select random vertex
-      randomInt = rand() % vertices.size();
+      randomInt = rand() % (vertices.size());
       randomVec = vertices[randomInt];
-
-      // ratio formula for any polygon of n-corner points
-      double r = vertices.size() / (vertices.size() + 3.0);
 
       /// calculate midpoint between random vertex
       /// and the last point in the vector
@@ -131,6 +174,7 @@ int main()
     {
       RectangleShape rect(Vector2f(10, 10));
       rect.setPosition(Vector2f(vertices[i].x, vertices[i].y));
+
       rect.setFillColor(Color::Blue);
       window.draw(rect);
     }
@@ -138,10 +182,10 @@ int main()
     /// Draw points
     if (points.size() > 0)
     {
-      for (int i = 0; i < points.size(); i++)
+      for (Vector2f point : points)
       {
         RectangleShape rect(Vector2f(10, 10));
-        rect.setPosition(points[i]);
+        rect.setPosition(point);
         rect.setFillColor(Color::Green);
         window.draw(rect);
       }

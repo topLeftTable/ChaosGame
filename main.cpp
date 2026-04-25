@@ -164,8 +164,12 @@ int main()
       randomInt = rand() % (vertices.size());
       randomVec = vertices[randomInt];
 
-      tempVec.x = (randomVec.x + points[points.size() - 1].x) * r;
-      tempVec.y = (randomVec.y + points[points.size() - 1].y) * r;
+      //tempVec.x = (randomVec.x + points[points.size() - 1].x) * r;
+      //tempVec.y = (randomVec.y + points[points.size() - 1].y) * r;
+
+      tempVec.x = ((1 - r) * points[points.size() - 1].x) + (r * randomVec.x);
+      tempVec.y = ((1 - r) * points[points.size() - 1].y) + (r * randomVec.y);
+
 
       points.push_back(tempVec);
     }
@@ -222,7 +226,7 @@ int main()
 
     if (update)
     {
-      if (event.type == Event::MouseButtonPressed or
+      if (event.type == Event::MouseButtonPressed ||
           event.type == Event::MouseButtonReleased)
       {
         ptrPosX = event.mouseButton.x;

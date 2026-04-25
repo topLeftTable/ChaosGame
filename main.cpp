@@ -22,6 +22,11 @@ int main()
   msg.setFillColor(Color::Magenta);
   msg.setPosition(50, 50);
 
+
+  FloatRect msgBounds;
+  RectangleShape msgBackground;
+  msgBackground.setFillColor(Color::Black);
+
   int ptrPosX;
   int ptrPosY;
 
@@ -55,9 +60,9 @@ int main()
         window.close();
       }
 
-      if (event.type == sf::Event::MouseButtonPressed)
+      if (event.type == Event::MouseButtonPressed)
       {
-        if (event.mouseButton.button == sf::Mouse::Left)
+        if (event.mouseButton.button == Mouse::Left)
         {
           std::cout << "the left button was pressed" << std::endl;
           std::cout << "mouse x: " << event.mouseButton.x << std::endl;
@@ -68,7 +73,7 @@ int main()
                 Vector2f(event.mouseButton.x, event.mouseButton.y));
           }
         }
-        else if (event.mouseButton.button == sf::Mouse::Right &&
+        else if (event.mouseButton.button == Mouse::Right &&
                  points.size() == 0)
         {
           /// fourth click
@@ -84,7 +89,7 @@ int main()
     }
 
     //    DEBUG: POINTERPOSY
-    cout << " Event Mousebutton: " << event.mouseButton.y << endl;
+    // cout << " Event Mousebutton: " << event.mouseButton.y << endl;
     //    cout << " Vector Mousebutton: " << vector2i.y << endl;
 
     if (Keyboard::isKeyPressed(Keyboard::Escape))
@@ -154,7 +159,6 @@ int main()
 
       int randomInt;
       Vector2f randomVec;
-      Vector2f randomVec2;
       Vector2f tempVec;
 
       randomInt = rand() % (vertices.size());
@@ -230,13 +234,15 @@ int main()
         ptrPosY = event.mouseMove.y;
       }
     }
-    cout << update << endl << endl;
 
     str = "Pointer Position : " + to_string(ptrPosX) + "," +
           to_string(ptrPosY) +
           "\nAmount of Points: " + to_string(vertices.size()) +
           "\nRight Click To Draw a " + selShape;
     msg.setString(str);
+    msgBounds = msg.getGlobalBounds();
+    msgBackground.setSize(Vector2f(msgBounds.width + 16, msgBounds.height + 16)); // 8px padding for readability
+    msgBackground.setPosition(Vector2f(msgBounds.left - 8, msgBounds.top - 8));
 
     for (int i = 0; i < vertices.size(); i++)
     {
@@ -260,7 +266,7 @@ int main()
         window.draw(rect);
       }
     }
-
+  window.draw(msgBackground);
     window.draw(msg);
 
     window.display();

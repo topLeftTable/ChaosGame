@@ -177,9 +177,11 @@ int main()
 
     //    UI Shape Text Selection
     //    Logic to Select Shape Name
-    selShape = "Shape";
     switch (vertices.size())
     {
+    default:
+      selShape = "Shape";
+      break;
     case 3:
       selShape = "Triangle";
       break;

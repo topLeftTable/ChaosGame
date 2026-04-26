@@ -36,6 +36,7 @@ int main()
 	int ptrPosX;
 	int ptrPosY;
 
+	int lastUsedIndex = -1;
 	bool update;
 
 	srand(time(nullptr));
@@ -129,8 +130,13 @@ int main()
 			Vector2f tempVec;
 
 			/// select random vertex
-			randomInt = rand() % vertices.size();
+			do
+			{
+				randomInt = rand() % vertices.size();
+			} while (vertices.size() > 3 && randomInt == lastUsedIndex);
+
 			randomVec = vertices[randomInt];
+			lastUsedIndex = randomInt;
 
 			// ratio formula for any polygon of n-corner points
 			double r = vertices.size() / (vertices.size() + 3.0);

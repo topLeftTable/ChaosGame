@@ -115,6 +115,13 @@ int main()
 			window.close();
 		}
 
+		// press 'R' to reset the drawing
+		if (Keyboard::isKeyPressed(Keyboard::R))
+		{
+			points.clear();
+			vertices.clear();
+		}
+
 		/*
 		****************************************
 		Update
@@ -268,14 +275,6 @@ int main()
 				rect.setFillColor(Color::Green);
 				window.draw(rect);
 			}
-		}
-
-		// press 'R' to reset the drawing
-		if (Keyboard::isKeyPressed(Keyboard::R))
-		{
-			window.clear();
-			points.clear();
-			vertices.clear();
 		}
 
 		window.draw(msgBackground);

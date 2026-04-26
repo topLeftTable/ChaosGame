@@ -29,7 +29,6 @@ int main()
   msg.setFillColor(Color::Magenta);
   msg.setPosition(50, 50);
 
-
   FloatRect msgBounds;
   RectangleShape msgBackground;
   msgBackground.setFillColor(Color::Black);
@@ -95,7 +94,6 @@ int main()
           /// fourth click
 
           /// push back to points vector
-
           for (int i = 0; i < vertices.size(); i++)
           {
             points.push_back(vertices[i]);
@@ -122,15 +120,7 @@ int main()
     if (points.size() > 0)
     {
       /// generate more point(s)
-      /// select random vertex
-
-      /// calculate midpoint between random vertex and the last point in the
-      /// vector
-
-      /// push back the newly generated coord.
-
-      // NOT GONNA LIE WE ALL STRUGGLED AND WORKED ON THIS
-
+      ///
       int randomInt;
       Vector2f randomVec;
       Vector2f tempVec;
@@ -142,26 +132,14 @@ int main()
       // ratio formula for any polygon of n-corner points
       double r = vertices.size() / (vertices.size() + 3.0);
 
-      //tempVec.x = (randomVec.x + points[points.size() - 1].x) * r;
-      //tempVec.y = (randomVec.y + points[points.size() - 1].y) * r;
-
-      tempVec.x = ((1 - r) * points[points.size() - 1].x) + (r * randomVec.x);
-      tempVec.y = ((1 - r) * points[points.size() - 1].y) + (r * randomVec.y);
-
       /// calculate midpoint between random vertex
-      /// and the last point in the vector
-      //tempVec.x = (randomVec.x + points[points.size() - 1].x) * r;
-      //tempVec.y = (randomVec.y + points[points.size() - 1].y) * r;
-
-
-      //Calulate next point based of vertices and ratio formula
-
+      /// and the last point in the vector using ratio
       tempVec.x = ((1 - r) * points[points.size() - 1].x) + (r * randomVec.x);
       tempVec.y = ((1 - r) * points[points.size() - 1].y) + (r * randomVec.y);
 
-
-
+      /// push back the newly generated coord.
       points.push_back(tempVec);
+
     }
 
     /*

@@ -151,8 +151,16 @@ int main()
 
       /// calculate midpoint between random vertex
       /// and the last point in the vector
-      tempVec.x = (randomVec.x + points[points.size() - 1].x) * r;
-      tempVec.y = (randomVec.y + points[points.size() - 1].y) * r;
+      //tempVec.x = (randomVec.x + points[points.size() - 1].x) * r;
+      //tempVec.y = (randomVec.y + points[points.size() - 1].y) * r;
+
+
+      //Calulate next point based of vertices and ratio formula
+
+      tempVec.x = ((1 - r) * points[points.size() - 1].x) + (r * randomVec.x);
+      tempVec.y = ((1 - r) * points[points.size() - 1].y) + (r * randomVec.y);
+
+
 
       /// push back the newly generated coord.
       points.push_back(tempVec);

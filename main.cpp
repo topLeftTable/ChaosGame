@@ -29,16 +29,15 @@ int main()
   msg.setFillColor(Color::Magenta);
   msg.setPosition(50, 50);
 
+
   FloatRect msgBounds;
   RectangleShape msgBackground;
   msgBackground.setFillColor(Color::Black);
 
   int ptrPosX;
   int ptrPosY;
+  
   bool update;
-
-  // Seed the random number generator
-  srand(time(nullptr));
 
   string selShape;
 
@@ -48,12 +47,8 @@ int main()
   // Create and open a window for the game
   RenderWindow window(vm, "Chaos Game!!", Style::Default);
 
-  // Coordinate points forming initial shape
   vector<Vector2f> vertices;
-  // Random points generated during calculations
   vector<Vector2f> points;
-
-  // Start the game loop
   while (window.isOpen())
   {
 
@@ -87,11 +82,8 @@ int main()
           std::cout << "the left button was pressed" << std::endl;
           std::cout << "mouse x: " << event.mouseButton.x << std::endl;
           std::cout << "mouse y: " << event.mouseButton.y << std::endl;
-
-          // Possible vertices max out at 10
           if (vertices.size() < 10)
           {
-            // store vertices of Left Mouse clicks
             vertices.push_back(
                 Vector2f(event.mouseButton.x, event.mouseButton.y));
           }
@@ -142,12 +134,14 @@ int main()
       Vector2f randomVec2;
       Vector2f tempVec;
 
-      /// select random vertex
-      randomInt = rand() % vertices.size();
+      randomInt = rand() % (vertices.size());
       randomVec = vertices[randomInt];
 
-      // ratio formula for any polygon of n-corner points
-      double r = vertices.size() / (vertices.size() + 3.0);
+      //tempVec.x = (randomVec.x + points[points.size() - 1].x) * r;
+      //tempVec.y = (randomVec.y + points[points.size() - 1].y) * r;
+
+      tempVec.x = ((1 - r) * points[points.size() - 1].x) + (r * randomVec.x);
+      tempVec.y = ((1 - r) * points[points.size() - 1].y) + (r * randomVec.y);
 
       /// calculate midpoint between random vertex
       /// and the last point in the vector
@@ -162,7 +156,6 @@ int main()
 
 
 
-      /// push back the newly generated coord.
       points.push_back(tempVec);
     }
 

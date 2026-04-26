@@ -136,13 +136,13 @@ int main()
 			Vector2f randomVec;
 			Vector2f tempVec;
 
-			/// select random vertex
+			/// select random vertex except last iteration's vertex
 			do
 			{
 				randomInt = rand() % vertices.size();
 			} while (vertices.size() > 3 && randomInt == lastUsedIndex);
 
-			// logic for original pattern
+			// logic for original pattern - select random vertex
 			//randomInt = rand() % vertices.size();
 
 			randomVec = vertices[randomInt];

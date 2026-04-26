@@ -37,7 +37,7 @@ int main()
 	int ptrPosY;
 
 	int lastUsedIndex = -1;
-	bool update;
+	bool update = true;
 
 	srand(time(nullptr));
 
@@ -134,6 +134,9 @@ int main()
 			{
 				randomInt = rand() % vertices.size();
 			} while (vertices.size() > 3 && randomInt == lastUsedIndex);
+
+			// logic for original pattern
+			//randomInt = rand() % vertices.size();
 
 			randomVec = vertices[randomInt];
 			lastUsedIndex = randomInt;
@@ -260,11 +263,19 @@ int main()
 		{
 			for (Vector2f point : points)
 			{
-				RectangleShape rect(Vector2f(1, 1));
+				RectangleShape rect(Vector2f(2, 2));
 				rect.setPosition(point);
 				rect.setFillColor(Color::Green);
 				window.draw(rect);
 			}
+		}
+
+		// press 'R' to reset the drawing
+		if (Keyboard::isKeyPressed(Keyboard::R))
+		{
+			window.clear();
+			points.clear();
+			vertices.clear();
 		}
 
 		window.draw(msgBackground);

@@ -19,9 +19,24 @@ using namespace std;
 
 int main()
 {
+//  Declarations and initializaation for text renderer
+  string str;
+  Text msg;
+  Font font;
+  font.loadFromFile("fonts/IBMPlexMono-Regular.ttf");
+  msg.setFont(font);
+  msg.setCharacterSize(25);
+  msg.setFillColor(Color::Magenta);
+  msg.setPosition(50,50);
 
-  //removemepls
+  FloatRect msgBounds;
+  RectangleShape msgBackground;
+  msgBackground.setFillColor(Color::Black);
 
+  int ptrPosX;
+  int ptrPosY;
+  bool update;
+  
   // Seed the random number generator
   srand(time(nullptr));
 
@@ -133,30 +148,72 @@ int main()
 //    Ezekiel: Text Rendering or something
 //    Мрак привет
 
-    string str = "Pointer Position: " + to_string(event.mouseButton.x) + "," + to_string(event.mouseButton.y) + "\nAmount of Points: " + to_string(vertices.size());
-    Text msg;
-    Font font;
-    font.loadFromFile("fonts/IBMPlexMono-Regular.ttf");
-    msg.setFont(font);
-    msg.setString(str);
-    msg.setCharacterSize(25);
-    msg.setFillColor(Color::Magenta);
-    
-//    FIXME: TEXTBOX FAILURE TO DRAW
-    FloatRect textBox = msg.getLocalBounds();
-    msg.setOrigin(textBox.left +
-       textBox.width / 2.0f,
-       textBox.top +
-       textBox.height / 2.0f);
-    msg.setPosition(220,50);
+//    UI Shape Text Selection
+//    Logic to Select Shape Name
+    string selShape;
+    selShape = "Shape";
+    switch (vertices.size())
+    {
+       case 3:
+          selShape = "Triangle";
+          break;
+       case 4:
+          selShape = "Square";
+          break;
+       case 5:
+          selShape = "Pentagon";
+          break;
+       case 6:
+          selShape = "Hexagon";
+          break;
+       case 7:
+          selShape = "Heptagon";
+          break;
+       case 8:
+          selShape = "Octagon";
+          break;
+       case 9:
+          selShape = "Nonagon";
+          break;
+       case 10:
+          selShape = "Decagon";
+          break;
+    }
 
-//    debug 4 textrender
-//    FIXME .Y COORDINATE IS ACTING WEIRD FOR NO DISCERNABLE REASON
-cout << event.mouseButton.y << endl;
+//   Logic to Determine Whether or Not to Update ptrPos Text
+    if (event.type == Event::MouseMoved)
+    {
+       update = 1;
+    }
+    else if (event.type == Event::MouseLeft)
+    {
+       update = 0;
+    }
+
+    if (update)
+    {
+       if (event.type == Event::MouseButtonPressed || event.type == Event::MouseButtonReleased)
+       {
+          ptrPosX = event.mouseButton.x;
+          ptrPosY = event.mouseButton.y;
+       }
+       else
+       {
+          ptrPosX = event.mouseMove.x;
+          ptrPosY = event.mouseMove.y;
+       }
+    }
+
+//    Printing
+    str = "Pointer Position : " + to_string(ptrPosX) + "," + to_string(ptrPosY) + "\nAmount of Points: " + to_string(vertices.size()) + "\nRight Click to Draw a " + selShape;
+    msg.setString(str);
+    msgBounds = msg.getGlobalBounds();
+    msgBackground.setSize(Vector2f(msgBounds.width + 16, msgBounds.height + 16)); // 8px padding (Logan's idea)
+    msgBackground.setPosition(Vector2f(msgBounds.left - 8, msgBounds.top - 8));
 
     for (int i = 0; i < vertices.size(); i++)
     {
-      RectangleShape rect(Vector2f(10, 10));
+      RectangleShape rect(Vector2f(5, 5));
       rect.setPosition(Vector2f(vertices[i].x, vertices[i].y));
       rect.setFillColor(Color::Blue);
       window.draw(rect);
@@ -167,17 +224,15 @@ cout << event.mouseButton.y << endl;
     {
       for (int i = 0; i < points.size(); i++)
       {
-        RectangleShape rect(Vector2f(10, 10));
+        RectangleShape rect(Vector2f(1, 1));
         rect.setPosition(points[i]);
         rect.setFillColor(Color::Green);
         window.draw(rect);
       }
     }
 
-
+    window.draw(msgBackground);
     window.draw(msg);
-//    window.display(textBox);
-
 
     window.display();
   }

@@ -131,11 +131,14 @@ int main()
 
       int randomInt;
       Vector2f randomVec;
-      Vector2f randomVec2;
       Vector2f tempVec;
 
-      randomInt = rand() % (vertices.size());
+      /// select random vertex
+      randomInt = rand() % vertices.size();
       randomVec = vertices[randomInt];
+
+      // ratio formula for any polygon of n-corner points
+      double r = vertices.size() / (vertices.size() + 3.0);
 
       //tempVec.x = (randomVec.x + points[points.size() - 1].x) * r;
       //tempVec.y = (randomVec.y + points[points.size() - 1].y) * r;

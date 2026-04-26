@@ -1,5 +1,11 @@
-// Include important C++ libraries here
+/*
+**************************************
+Project By LoganMD, jalenzwatkins,
+WaitingKeptYouHuh, and deathsdebtor
+**************************************
+*/
 
+// Include important C++ libraries here
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 #include <iostream>
@@ -10,9 +16,10 @@
 // Make the code easier to type with "using namespace"
 using namespace sf;
 using namespace std;
-// bool update;
+
 int main()
 {
+  //  Declarations and initialization for text renderer
   string str;
   Text msg;
   Font font;
@@ -29,10 +36,13 @@ int main()
 
   int ptrPosX;
   int ptrPosY;
-
+  
   bool update;
 
-  srand(time(0));
+  srand(time(nullptr));
+
+  string selShape;
+
   // Create a video mode object
   VideoMode vm(1920, 1080);
 
@@ -60,8 +70,15 @@ int main()
         window.close();
       }
 
+      // Quit the game when ESC key is pressed
+      if (Keyboard::isKeyPressed(Keyboard::Escape))
+      {
+        window.close();
+      }
+
       if (event.type == Event::MouseButtonPressed)
       {
+
         if (event.mouseButton.button == Mouse::Left)
         {
           std::cout << "the left button was pressed" << std::endl;
@@ -73,8 +90,7 @@ int main()
                 Vector2f(event.mouseButton.x, event.mouseButton.y));
           }
         }
-        else if (event.mouseButton.button == Mouse::Right &&
-                 points.size() == 0)
+        else if (event.mouseButton.button == Mouse::Right && points.size() == 0)
         {
           /// fourth click
 
@@ -115,60 +131,34 @@ int main()
 
       // NOT GONNA LIE WE ALL STRUGGLED AND WORKED ON THIS
 
-      int vert = vertices.size();
-      double r;
-
-      switch (vert)
-      {
-
-      case 3:
-        r = .5;
-        break;
-
-      case 4:
-        r = .5;
-        break;
-
-      case 5:
-        r = .618;
-        break;
-
-      case 6:
-        r = .667;
-        break;
-
-      case 7:
-        r = .692;
-        break;
-
-      case 8:
-        r = .707;
-        break;
-
-      case 9:
-        r = .742;
-        break;
-
-      case 10:
-        r = .764;
-        break;
-
-      default:
-        break;
-      }
-
       int randomInt;
       Vector2f randomVec;
       Vector2f tempVec;
 
-      randomInt = rand() % (vertices.size());
+      /// select random vertex
+      randomInt = rand() % vertices.size();
       randomVec = vertices[randomInt];
+
+      // ratio formula for any polygon of n-corner points
+      double r = vertices.size() / (vertices.size() + 3.0);
 
       //tempVec.x = (randomVec.x + points[points.size() - 1].x) * r;
       //tempVec.y = (randomVec.y + points[points.size() - 1].y) * r;
 
       tempVec.x = ((1 - r) * points[points.size() - 1].x) + (r * randomVec.x);
       tempVec.y = ((1 - r) * points[points.size() - 1].y) + (r * randomVec.y);
+
+      /// calculate midpoint between random vertex
+      /// and the last point in the vector
+      //tempVec.x = (randomVec.x + points[points.size() - 1].x) * r;
+      //tempVec.y = (randomVec.y + points[points.size() - 1].y) * r;
+
+
+      //Calulate next point based of vertices and ratio formula
+
+      tempVec.x = ((1 - r) * points[points.size() - 1].x) + (r * randomVec.x);
+      tempVec.y = ((1 - r) * points[points.size() - 1].y) + (r * randomVec.y);
+
 
 
       points.push_back(tempVec);
@@ -185,8 +175,9 @@ int main()
     //    WaitingKeptYouHuh: Text Rendering or something
     //    Мрак привет
 
-    string selShape;
-    selShape = "shape";
+    //    UI Shape Text Selection
+    //    Logic to Select Shape Name
+    selShape = "Shape";
     switch (vertices.size())
     {
     case 3:
@@ -215,13 +206,23 @@ int main()
       break;
     }
 
+    //   Logic to Determine Whether or Not to Update ptrPos Text
     if (event.type == Event::MouseMoved)
     {
-      update = 1;
+      update = true;
     }
     else if (event.type == Event::MouseLeft)
     {
-      update = 0;
+      update = false;
+    }
+
+    if (event.type == Event::MouseMoved)
+    {
+      update = true;
+    }
+    else if (event.type == Event::MouseLeft)
+    {
+      update = false;
     }
 
     if (update)
@@ -238,14 +239,18 @@ int main()
         ptrPosY = event.mouseMove.y;
       }
     }
+    // cout << update << endl << endl;
 
+    //    Printing
     str = "Pointer Position : " + to_string(ptrPosX) + "," +
           to_string(ptrPosY) +
           "\nAmount of Points: " + to_string(vertices.size()) +
-          "\nRight Click To Draw a " + selShape;
+          "\nRight Click to Draw a " + selShape;
     msg.setString(str);
     msgBounds = msg.getGlobalBounds();
-    msgBackground.setSize(Vector2f(msgBounds.width + 16, msgBounds.height + 16)); // 8px padding for readability
+    msgBackground.setSize(
+        Vector2f(msgBounds.width + 16,
+                 msgBounds.height + 16)); // 8px padding (Logan's idea)
     msgBackground.setPosition(Vector2f(msgBounds.left - 8, msgBounds.top - 8));
 
     for (int i = 0; i < vertices.size(); i++)
@@ -270,7 +275,8 @@ int main()
         window.draw(rect);
       }
     }
-  window.draw(msgBackground);
+
+    window.draw(msgBackground);
     window.draw(msg);
 
     window.display();

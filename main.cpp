@@ -39,6 +39,8 @@ int main()
   
   bool update;
 
+  srand(time(nullptr));
+
   string selShape;
 
   // Create a video mode object

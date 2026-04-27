@@ -6,6 +6,7 @@ When the program opens, you left-click to create points (maximum of 10).
 Afterwards, right-clicking will begin rendering it.
 
 Pressing the `r` key will erase your shape, allowing you to make another.
+Pressing the `tab` key will switch the pattern the program draws. 
 
 ## Building
 There are 3 ways to compile and run the program. Using CMake is preferred, whicn can be done via IDE or command line. We also supply a makefile, but that requires extra work to get running for most machines.

@@ -151,7 +151,7 @@ int main()
 			// ratio formula for any polygon of n-corner points
 			//
 			// Pattern 1 optimal formula
-			//double r = vertices.size() / (vertices.size() + 2.0);
+			//double r = vertices.size() / (vertices.size() + 3.0);
 
 			// Pattern 2 optimal formula
 			double r = vertices.size() / (vertices.size() + 4.0);

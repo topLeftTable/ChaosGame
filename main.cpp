@@ -149,7 +149,12 @@ int main()
 			lastUsedIndex = randomInt;
 
 			// ratio formula for any polygon of n-corner points
-			double r = vertices.size() / (vertices.size() + 3.0);
+			//
+			// Pattern 1 optimal formula
+			//double r = vertices.size() / (vertices.size() + 2.0);
+
+			// Pattern 2 optimal formula
+			double r = vertices.size() / (vertices.size() + 4.0);
 
 			/// calculate midpoint between random vertex
 			/// and the last point in the vector using ratio
@@ -270,7 +275,7 @@ int main()
 		{
 			for (Vector2f point : points)
 			{
-				RectangleShape rect(Vector2f(2, 2));
+				RectangleShape rect(Vector2f(1, 1));
 				rect.setPosition(point);
 				rect.setFillColor(Color::Green);
 				window.draw(rect);

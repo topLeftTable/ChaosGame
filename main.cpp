@@ -237,7 +237,7 @@ int main()
 		str = "Pointer Position : " + to_string(ptrPosX) + "," +
 			  to_string(ptrPosY) +
 			  "\nAmount of Points: " + to_string(vertices.size()) +
-			  "\nSelected Pattern Pattern: " + to_string(selPat) +
+			  "\nSelected Pattern: " + to_string(selPat) +
 			  "\nRight Click to Draw a " + selShape;
 		msg.setString(str);
 		msgBounds = msg.getGlobalBounds();

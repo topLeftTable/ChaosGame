@@ -19,6 +19,17 @@ using namespace std;
 
 int main()
 {
+	// Lookup Table Vector Thing
+	//   Layout: data[0][x] = Shape Names | data[1][x] = Precomupted Ratios for
+	//   Ratio 1 | data[2][x] = Precomputed Ratios for Ratio 2
+	vector<vector<string>> data = {
+		{"Shape", "Shape", "Shape", "Triangle", "Square", "Pentagon", "Hexagon",
+		 "Heptagon", "Octagon", "Nonagon", "Decagon"},
+		{"0.00", "0.00", "0.00", "0.50", "0.5714285714", "0.625", "0.6666667",
+		 "0.70", "0.72727273", "0.75", "0.769207692"},
+		{"0.00", "0.00", "0.00", "0.4285714286", "0.50", "0.555555556", "0.60",
+		 "0.6363636364", "0.66666667", "0.6923076923", "0.714285713"}};
+
 	//  Declarations and initialization for text renderer
 	string str;
 	Text msg;
@@ -42,6 +53,7 @@ int main()
 	srand(time(nullptr));
 
 	string selShape;
+	int selPat = 1;
 
 	// Create a video mode object
 	VideoMode vm(1920, 1080);
@@ -63,6 +75,21 @@ int main()
 		Event event;
 		while (window.pollEvent(event))
 		{
+			// Press 'Tab' to Switch Between Patterns
+			if (event.type == sf::Event::KeyPressed)
+			{
+				if (event.key.code == sf::Keyboard::Key::Tab)
+				{
+					selPat = selPat == 2 ? selPat = 1 : selPat = 2;
+				}
+			}
+
+			// press 'R' to reset the drawing
+			if (Keyboard::isKeyPressed(Keyboard::R))
+			{
+				points.clear();
+				vertices.clear();
+			}
 
 			if (event.type == Event::Closed)
 			{
@@ -106,20 +133,9 @@ int main()
 			}
 		}
 
-		//    DEBUG: POINTERPOSY
-		// cout << " Event Mousebutton: " << event.mouseButton.y << endl;
-		//    cout << " Vector Mousebutton: " << vector2i.y << endl;
-
 		if (Keyboard::isKeyPressed(Keyboard::Escape))
 		{
 			window.close();
-		}
-
-		// press 'R' to reset the drawing
-		if (Keyboard::isKeyPressed(Keyboard::R))
-		{
-			points.clear();
-			vertices.clear();
 		}
 
 		/*
@@ -137,27 +153,26 @@ int main()
 			Vector2f tempVec;
 
 			/// select random vertex except last iteration's vertex
-			do
+			if (selPat == 2)
+			{
+				do
+				{
+					randomInt = rand() % vertices.size();
+				} while (vertices.size() > 3 && randomInt == lastUsedIndex);
+			}
+
+			else if (selPat == 1)
 			{
 				randomInt = rand() % vertices.size();
-			} while (vertices.size() > 3 && randomInt == lastUsedIndex);
-
-			// logic for original pattern - select random vertex
-			//randomInt = rand() % vertices.size();
-
+			}
 			randomVec = vertices[randomInt];
 			lastUsedIndex = randomInt;
 
 			// ratio formula for any polygon of n-corner points
-			//
-			// Pattern 1 optimal formula
-			//double r = vertices.size() / (vertices.size() + 3.0);
+			double r = stod(data[selPat][vertices.size()]);
 
-			// Pattern 2 optimal formula
-			double r = vertices.size() / (vertices.size() + 4.0);
-
-			/// calculate midpoint between random vertex
-			/// and the last point in the vector using ratio
+			/// calculate midpoint between random vertex and the last point in
+			/// the vector using ratio
 			tempVec.x =
 				((1 - r) * points[points.size() - 1].x) + (r * randomVec.x);
 			tempVec.y =
@@ -180,36 +195,8 @@ int main()
 
 		//    UI Shape Text Selection
 		//    Logic to Select Shape Name
-		switch (vertices.size())
-		{
-		default:
-			selShape = "Shape";
-			break;
-		case 3:
-			selShape = "Triangle";
-			break;
-		case 4:
-			selShape = "Square";
-			break;
-		case 5:
-			selShape = "Pentagon";
-			break;
-		case 6:
-			selShape = "Hexagon";
-			break;
-		case 7:
-			selShape = "Heptagon";
-			break;
-		case 8:
-			selShape = "Octagon";
-			break;
-		case 9:
-			selShape = "Nonagon";
-			break;
-		case 10:
-			selShape = "Decagon";
-			break;
-		}
+
+		selShape = data[0][vertices.size()];
 
 		//   Logic to Determine Whether or Not to Update ptrPos Text
 		if (event.type == Event::MouseMoved)
@@ -250,6 +237,7 @@ int main()
 		str = "Pointer Position : " + to_string(ptrPosX) + "," +
 			  to_string(ptrPosY) +
 			  "\nAmount of Points: " + to_string(vertices.size()) +
+			  "\nSelected Pattern Pattern: " + to_string(selPat) +
 			  "\nRight Click to Draw a " + selShape;
 		msg.setString(str);
 		msgBounds = msg.getGlobalBounds();
@@ -268,8 +256,6 @@ int main()
 			window.draw(rect);
 		}
 
-		// points.push_back(Vector2f(15, 15));
-
 		/// TODO:  Draw points
 		if (points.size() > 0)
 		{
@@ -284,7 +270,6 @@ int main()
 
 		window.draw(msgBackground);
 		window.draw(msg);
-
 		window.display();
 	}
 }

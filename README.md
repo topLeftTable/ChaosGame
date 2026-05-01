@@ -36,3 +36,6 @@ Linux requires a few packages to be installed to be able to compile the project.
 - `SDL2_image-devel`
 - `glm-devel`
 - `freetype-devel`
+- `openal-soft-devel`
+- `libvorbis-devel`
+- `flac-devel`

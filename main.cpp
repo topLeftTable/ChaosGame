@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2022-2025 Ryan Hermle <rhermle>
- * Modified Works by LoganMD, WaitingKeptYouHuh, and deathsdebtor
+ * Modified Works by LoganMD, WaitingKeptYouHuh, deathsdebtor, and jalenzwatkins
  * Copyright (C) 2026 topLeftTable
 
 ChaosGame is free software: you can redistribute it and/or modify
